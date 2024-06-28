@@ -3,6 +3,8 @@ COPY . .
 RUN mvn clean package -DskipTests
 FROM openjdk:17-jdk-slim
 COPY --from=build /target/BankingApplication.jar demo.jar
-# ENV PORT=8080
-EXPOSE 8080
+# Copy the JSP files and other web resources
+COPY src/main/webapp /app/src/main/webapp
+# ENV PORT=9000
+EXPOSE 9000
 ENTRYPOINT ["java","-jar","demo.jar"]
